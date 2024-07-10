@@ -12,8 +12,8 @@ fi
 
 # Create the database and grant privileges
 if ! sudo mysql -e "CREATE DATABASE IF NOT EXISTS ${db_name};" || \
-   ! sudo mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'%' IDENTIFIED BY '${db_password}';" || \
-   ! sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root_password' WITH GRANT OPTION;"; then
+   ! sudo mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'%' IDENTIFIED BY '${db_password}';"; then
+  
     echo "Failed to create database or grant privileges" >> $LOG_FILE
     exit 1
 fi
@@ -27,6 +27,7 @@ if ! wget --no-check-certificate -O /tmp/google-mobility.sql "${sql_file_url}"; 
     exit 1
 fi
 
+# Import the SQL file using db_user and db_password
 # Import the SQL file using db_user and db_password
 echo "Importing SQL file..." >> $LOG_FILE
 if ! mysql -u"${db_user}" -p"${db_password}" "${db_name}" < /tmp/google-mobility.sql 2>>$LOG_FILE; then

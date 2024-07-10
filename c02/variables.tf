@@ -19,5 +19,5 @@ variable "google_db_password" {
 
 variable "metabase_password" {
   description = "Password for Metabase"
-  default     = "metabasepassword"
+  default     = "metabasepassword1"
 }
