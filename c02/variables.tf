@@ -14,10 +14,19 @@ variable "google_db_user" {
 
 variable "google_db_password" {
   description = "Password for the Google DB"
-  default     = "mypassword"
+  type        = string
+  sensitive   = true
 }
 
 variable "metabase_password" {
   description = "Password for Metabase"
-  default     = "metabasepassword1"
+  type        = string
+  sensitive   = true
+}
+
+variable "admin_email" {
+  description = "Admin email for Metabase"
+  type        = string
+  sensitive   = true
+ 
 }

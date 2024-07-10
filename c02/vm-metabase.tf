@@ -14,6 +14,7 @@ resource "openstack_compute_instance_v2" "tf_metabase" {
     db_password  = var.google_db_password
     db_host      = openstack_compute_instance_v2.tf_db.network.0.fixed_ip_v4
     metabase_password = var.metabase_password
+    admin_email       = var.admin_email 
   })
 
    network {
