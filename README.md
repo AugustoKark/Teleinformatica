@@ -43,12 +43,42 @@ terraform plan
 ```bash
 terraform apply
 ```
+
 ## Componentes desplegados
 
-- Bastion host
-- Servidor de base de datos MySQL
-- Servidor Metabase
-- Balanceador de carga
+- **Bastion Host (tf-bastion)**
+  - Punto de entrada seguro a la red interna.
+  - Utiliza Ubuntu 22.04.
+  - Grupo de seguridad: `tf_sg_bastion`.
+    - Permite SSH (puerto 22) e ICMP desde Internet.
+  - Tiene una IP flotante para acceso externo.
+
+- **Servidor de Base de Datos MySQL (tf-db)**
+  - Aloja la base de datos para Metabase.
+  - Utiliza una imagen personalizada de MySQL en Ubuntu 18.04.
+  - Grupo de seguridad: `tf_sg_db`.
+    - Permite tráfico MySQL desde Metabase.
+    - Permite SSH desde el Bastion Host.
+
+- **Servidor Metabase (tf_metabase)**
+  - Ejecuta la aplicación Metabase.
+  - Utiliza Ubuntu 22.04 con Docker preinstalado.
+  - Grupo de seguridad: `tf_sg_metabase`.
+    - Permite tráfico al puerto 3000 desde el balanceador de carga.
+    - Permite SSH desde el Bastion Host.
+
+- **Balanceador de Carga (tf-lb)**
+  - Actúa como punto de entrada para Metabase.
+  - Utiliza Nginx en Ubuntu 18.04.
+  - Grupo de seguridad: `tf_sg_lb`.
+    - Permite tráfico HTTP (puerto 80) desde Internet.
+    - Permite SSH desde el Bastion Host.
+  - Tiene una IP flotante para acceso público.
+
+- **Red y Enrutamiento**
+  - Red privada (tf-net) con subnet `172.19.0.0/24`.
+  - Router (tf-router) conectando la red privada a la red externa.
+
 
 ## Notas importantes
 
