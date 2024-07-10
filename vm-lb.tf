@@ -7,7 +7,8 @@ resource "openstack_compute_instance_v2" "tf_lb" {
   availability_zone = "nodos-amd-2022"
 
   user_data = templatefile("${path.module}/templates/vm-lb.init.sh", {
-    app_ip = openstack_compute_instance_v2.tf_app.network.0.fixed_ip_v4
+    app_ip = openstack_compute_instance_v2.tf_metabase.network.0.fixed_ip_v4
+    app_port = 3000
   })
 
   network {
