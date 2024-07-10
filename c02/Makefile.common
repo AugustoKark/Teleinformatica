@@ -1,4 +1,4 @@
-export TF_DATA_DIR=/tf-data
+export TF_DATA_DIR=tf-data
 
 help:
 	@echo make init

@@ -7,7 +7,10 @@ resource "openstack_compute_instance_v2" "tf_db" {
   availability_zone = "nodos-amd-2022"
 
   user_data = templatefile("${path.module}/templates/vm-db.init.sh", {
-    
+   db_name      = var.google_db_name
+    db_user      = var.google_db_user
+    db_password  = var.google_db_password
+    sql_file_url = "https://drive.google.com/file/d/1ZJxfNQf6l83HNoeKOoYIUykjV68fH1Lc/view?usp=sharing"
   })
 
   network {

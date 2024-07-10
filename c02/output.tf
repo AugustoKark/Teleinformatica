@@ -11,5 +11,5 @@ output "tf_lb_ip" {
 }
 
 output "site_url" {
-  value = "http://${openstack_networking_floatingip_v2.tf_lb_fip.address}/blog/"
+  value = "http://${openstack_networking_floatingip_v2.tf_lb_fip.address}/"
 }

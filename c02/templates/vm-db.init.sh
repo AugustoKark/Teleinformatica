@@ -12,7 +12,8 @@ fi
 
 # Create the database and grant privileges
 if ! sudo mysql -e "CREATE DATABASE IF NOT EXISTS ${db_name};" || \
-   ! sudo mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'%' IDENTIFIED BY '${db_password}';"; then
+   ! sudo mysql -e "GRANT ALL PRIVILEGES ON ${db_name}.* TO '${db_user}'@'%' IDENTIFIED BY '${db_password}';" || \
+   ! sudo mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root_password' WITH GRANT OPTION;"; then
     echo "Failed to create database or grant privileges" >> $LOG_FILE
     exit 1
 fi

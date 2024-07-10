@@ -5,7 +5,7 @@ terraform {
     }
   }
   backend "local" {
-    path = "/tf-state/terraform.tfstate"
+    path = "tf-state/terraform.tfstate"
   }
   required_version = ">= 1.5"
 }
