@@ -80,41 +80,7 @@ spec:
               "description": "Mobility data for Mendoza Province, Capital Department"
             }' | jq -r '.id')
 
-          # Create question
-          curl -X POST http://kb-metabase/api/card \
-            -H "Content-Type: application/json" \
-            -H "X-Metabase-Session: $SESSION_TOKEN" \
-            -d '{
-              "name": "average mendoza",
-              "display": "area",
-              "database": '$DB_ID',
-              "type": "query",
-              "dataset_query": {
-                "database": '$DB_ID',
-                "type": "query",
-                "query": {
-                  "source-table": 9,
-                  "aggregation": [
-                    ["avg", ["field", 83, {"base-type": "type/Integer"}]],
-                    ["avg", ["field", 81, {"base-type": "type/Integer"}]],
-                    ["avg", ["field", 72, {"base-type": "type/Integer"}]],
-                    ["avg", ["field", 80, {"base-type": "type/Integer"}]],
-                    ["avg", ["field", 78, {"base-type": "type/Integer"}]],
-                    ["avg", ["field", 86, {"base-type": "type/Integer"}]]
-                  ],
-                  "breakout": [["field", 73, {"base-type": "type/DateTime", "temporal-unit": "day"}]],
-                  "filter": ["and",
-                    ["=", ["field", 85, {"base-type": "type/Text"}], "Mendoza Province"],
-                    ["=", ["field", 75, {"base-type": "type/Text"}], "Capital Department"],
-                    ["between", ["field", 73, {"base-type": "type/DateTime"}], "2020-01-01", "2020-12-31"]
-                  ]
-                }
-              },
-              "visualization_settings": {
-                "graph.dimensions": ["date"],
-                "graph.metrics": ["avg", "avg_2", "avg_3", "avg_4", "avg_5", "avg_6"]
-              }
-            }'
+          
         env:
         - name: ADMIN_EMAIL
           valueFrom:
