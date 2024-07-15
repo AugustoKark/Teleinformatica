@@ -12,13 +12,13 @@ spec:
       labels:
         app: metabase
     spec:
+      initContainers:
+        - name: wait-for-mysql
+          image: busybox 
+          command: ['sh','-c','while ! nc -z kb-mysql 3306; do echo waiting for kb-mysql; sleep 2; done;',]
       containers:
       - name: metabase
         image: metabase/metabase:latest
-        command: ["/bin/sh", "-c"]
-        args:
-        - |
-          java -jar metabase.jar > /dev/null 2>&1
         ports:
         - containerPort: 3000
         livenessProbe:
