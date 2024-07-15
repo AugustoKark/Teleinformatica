@@ -36,7 +36,7 @@ spec:
           EOF
           
           # Import the SQL file
-          mysql -h kb-mysql -u root -p$MYSQL_ROOT_PASSWORD metabase < data.sql
+          mysql -h kb-mysql -u root -p$MYSQL_ROOT_PASSWORD google < data.sql
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
