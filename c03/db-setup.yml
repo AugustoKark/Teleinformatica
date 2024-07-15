@@ -12,8 +12,7 @@ spec:
         args:
         - |
           # Install wget
-          apt-get update
-          apt-get install -y wget
+          yum update -y && yum install -y wget && yum clean all
           
           # Download the SQL file
           wget -O data.sql https://drive.google.com/uc?export=download&id=1AC2uvs6f2t4qrhXpz5XowSxoVXR3TfvG

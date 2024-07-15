@@ -5,15 +5,16 @@ metadata:
 spec:
   template:
     spec:
+      initContainers:
+      - name: wait-for-mysql-setup
+        image: busybox
+        command: ['sh', '-c', 'until nslookup kb-mysql; do echo waiting for mysql; sleep 2; done']
       containers:
       - name: metabase-setup
-        image: alpine
+        image: curlimages/curl
         command: ["/bin/sh", "-c"]
         args:
         - |
-          #Insatlar curl
-          apk add --no-cache curl
-
           # Instalar jq
           apk add --no-cache jq
 
