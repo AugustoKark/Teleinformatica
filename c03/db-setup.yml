@@ -7,10 +7,14 @@ spec:
     spec:
       containers:
       - name: mysql-client
-        image: imega/mysql-client
+        image: mysql:8.4
         command: ["/bin/sh", "-c"]
         args:
         - |
+          # Install wget
+          apt-get update
+          apt-get install -y wget
+          
           # Download the SQL file
           wget -O data.sql https://drive.google.com/uc?export=download&id=1AC2uvs6f2t4qrhXpz5XowSxoVXR3TfvG
           
