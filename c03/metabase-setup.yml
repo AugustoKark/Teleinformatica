@@ -7,10 +7,13 @@ spec:
     spec:
       containers:
       - name: metabase-setup
-        image: curlimages/curl
+        image: alpine
         command: ["/bin/sh", "-c"]
         args:
         - |
+          #Insatlar curl
+          apk add --no-cache curl
+
           # Instalar jq
           apk add --no-cache jq
 
