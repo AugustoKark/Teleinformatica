@@ -11,6 +11,9 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
         - |
+          # Instalar jq
+          apk add --no-cache jq
+
           # Wait for Metabase to be ready
           until curl -s http://kb-metabase/api/health | grep -q "ok"; do
             echo "Waiting for Metabase to start..."
