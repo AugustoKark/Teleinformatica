@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metabase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: metabase
+  template:
+    metadata:
+      labels:
+        app: metabase
+    spec:
+      containers:
+      - name: metabase
+        image: metabase/metabase:latest
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          java -jar metabase.jar > /dev/null 2>&1
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          failureThreshold: 3
+        envFrom:
+        - configMapRef:
+            name: metabase-config
+        - secretRef:
+            name: metabase-secret
+        env:
+        - name: MB_ADMIN_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: metabase-secret
+              key: ADMIN_EMAIL
+        - name: MB_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: metabase-secret
+              key: ADMIN_PASSWORD

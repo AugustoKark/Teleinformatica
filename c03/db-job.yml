@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-data-loader
+spec:
+  template:
+    spec:
+      containers:
+      - name: mysql-client
+        image: mysql:5.7
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          wget -O data.sql https://drive.google.com/uc?export=download&id=1AC2uvs6f2t4qrhXpz5XowSxoVXR3TfvG
+          mysql -h kb-mysql -u root -p$MYSQL_ROOT_PASSWORD google < data.sql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: MYSQL_ROOT_PASSWORD
+      restartPolicy: Never
