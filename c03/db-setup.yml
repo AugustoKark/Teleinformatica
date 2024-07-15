@@ -7,17 +7,28 @@ spec:
     spec:
       containers:
       - name: mysql-client
-        image: mysql:8.0
+        image: imega/mysql-client
         command: ["/bin/sh", "-c"]
         args:
         - |
+          # Download the SQL file
           wget -O data.sql https://drive.google.com/uc?export=download&id=1AC2uvs6f2t4qrhXpz5XowSxoVXR3TfvG
+          
+          # Check if the file was downloaded successfully
+          if [ ! -f data.sql ]; then
+            echo "Failed to download data.sql"
+            exit 1
+          fi
+          
+          # Execute SQL commands
           mysql -h kb-mysql -u root -p$MYSQL_ROOT_PASSWORD <<EOF
           ALTER USER 'metabase'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
           GRANT ALL PRIVILEGES ON metabase.* TO 'metabase'@'%';
           FLUSH PRIVILEGES;
-          source data.sql;
           EOF
+          
+          # Import the SQL file
+          mysql -h kb-mysql -u root -p$MYSQL_ROOT_PASSWORD metabase < data.sql
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
