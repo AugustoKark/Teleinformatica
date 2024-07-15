@@ -18,6 +18,8 @@ spec:
         image: mysql:8.4
         ports:
         - containerPort: 3306
+        args: 
+        - --mysql-native-password=ON
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
