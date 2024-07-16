@@ -6,9 +6,9 @@ spec:
   template:
     spec:
       initContainers:
-      - name: wait-for-mysql-setup
+      - name: wait-for-metabase-setup
         image: busybox
-        command: ['sh', '-c', 'until nslookup mysql-setup; do echo waiting for mysql; sleep 2; done']
+        command: ['sh', '-c', 'until nslookup kb-metabase; do echo waiting for metabase; sleep 2; done']
       containers:
       - name: metabase-setup
         image: alpine
