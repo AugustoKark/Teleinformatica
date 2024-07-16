@@ -8,13 +8,17 @@ spec:
       initContainers:
       - name: wait-for-mysql-setup
         image: busybox
-        command: ['sh', '-c', 'until nslookup kb-mysql; do echo waiting for mysql; sleep 2; done']
+        command: ['sh', '-c', 'until nslookup mysql-setup; do echo waiting for mysql; sleep 2; done']
       containers:
       - name: metabase-setup
-        image: curlimages/curl
+        image: alpine
         command: ["/bin/sh", "-c"]
         args:
         - |
+          # Install curl
+          apk add --no-cache curl
+        
+
           # Instalar jq
           apk add --no-cache jq
 
