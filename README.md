@@ -1,4 +1,40 @@
 ### Caso 01
+# Red WAN Nacional con Mininet
+
+Este proyecto implementa una simulación de una red WAN nacional para una organización con 6 sucursales utilizando Mininet. La red está diseñada con una topología estrella, donde cada sucursal se conecta a una casa matriz central.
+
+## Estructura de la Red
+
+- **Red WAN**: 192.168.100.0/24, dividida en subredes /29 para los enlaces
+- **Redes LAN**: Cada sucursal utiliza una red 10.0.n.0/24
+
+### Direccionamiento
+
+- **Casa Matriz**: Router central conectado a todas las sucursales
+- **Sucursales**: 6 sucursales, cada una con su propio router y red interna
+
+## Implementación en Mininet
+
+El script de Python incluido en este repositorio crea la siguiente topología:
+
+- 1 router central (Casa Matriz)
+- 6 routers de sucursal
+- 6 hosts (uno por sucursal)
+- Switches para conectar los routers y hosts
+
+### Características del Script
+
+- Crea la topología completa con 7 routers y 6 hosts
+- Configura las interfaces de red con las direcciones IP correspondientes
+- Establece las rutas necesarias para la comunicación entre sucursales
+- Utiliza switches OVS en modo standalone
+
+## Requisitos
+
+- Mininet
+- Python 2.7 o superior
+
+
 
 ### Caso 02
 # Proyecto de Infraestructura con Terraform
@@ -85,6 +121,42 @@ terraform apply
 - Asegúrate de tener configuradas correctamente tus credenciales de OpenStack.
 - El archivo `variables.tf` contiene variables que puedes personalizar según tus necesidades.
 - La clave SSH utilizada está definida en la variable `key_name` en el archivo `variables.tf`. Asegúrate de reemplazarla con el nombre de tu clave SSH en OpenStack.
+
+
+
+### Caso 03
+# Despliegue de Metabase en Kubernetes
+
+Este repositorio contiene manifiestos de Kubernetes para desplegar Metabase con una base de datos MySQL, enfocado en el análisis de datos de movilidad para la Provincia de Mendoza, Departamento Capital.
+
+## Componentes
+
+1. **Base de Datos MySQL**
+   - Desplegada como un StatefulSet
+   - Incluye ConfigMaps para configuración e inicialización
+   - Utiliza un PersistentVolumeClaim para persistencia de datos
+   - Job para carga de datos y configuración de la base de datos
+
+2. **Metabase**
+   - Desplegado como un Deployment
+   - Configurado para conectarse a la base de datos MySQL
+   - Incluye chequeos de salud y sondas de disponibilidad
+   - Job para configuración inicial y creación de dashboard
+
+3. **Ingress**
+   - Configurado para acceso externo a Metabase
+
+4. **Secrets**
+   - Para almacenar información sensible como contraseñas y credenciales
+
+
+
+## Requisitos Previos
+
+- Clúster de Kubernetes
+- kubectl configurado para interactuar con tu clúster
+- Controlador de Ingress (por ejemplo, NGINX Ingress) instalado en el clúster
+
 
 
 
