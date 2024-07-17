@@ -1,1 +1,0 @@
-## Caso Práctico 2:
