@@ -58,6 +58,7 @@ TF_VAR_google_db_password=password
 TF_VAR_metabase_password=password
 TF_VAR_admin_email=mail@example.com
 ```
+(La password del metabase debe contener mayúsculas, minúsculas, números y caracteres especiales)
 
 3. Ejecuta el script para cargar las variables de entorno:
 
