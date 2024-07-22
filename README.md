@@ -157,6 +157,18 @@ Este repositorio contiene manifiestos de Kubernetes para desplegar Metabase con 
 - kubectl configurado para interactuar con tu clúster
 - Controlador de Ingress (por ejemplo, NGINX Ingress) instalado en el clúster
 
+## Ejecución
+
+1. Modifica el Ingress en `ingress.yaml` con el nombre de dominio que deseas utilizar.
+
+2. Aplica los manifiestos de Kubernetes:
+```bash
+kubectl apply -f .
+```
+
+
+
+
 
 
 
